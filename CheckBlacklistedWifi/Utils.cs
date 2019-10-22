@@ -8,7 +8,7 @@ namespace CheckBlacklistedWifi
 {
     public class Utils
     {
-        public static List<string> getWifiParsed(string cmdData)
+        public static List<string> getWifiWindowsCMDParsed(string cmdData)
         {
             List<string> result = new List<string>();
             string lastName = "Empty Name";

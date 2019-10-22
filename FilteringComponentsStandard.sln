@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTPProtocolFilter", "HTTPProtocolFilter\HTTPProtocolFilter.csproj", "{5AE6C320-3F1E-4F3C-93B4-BE00BF07C886}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HTTPProtocolFilter", "HTTPProtocolFilter\HTTPProtocolFilter.csproj", "{5AE6C320-3F1E-4F3C-93B4-BE00BF07C886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonStandard", "CommonStandard\CommonStandard.csproj", "{14F03747-71F6-4288-8829-72F778C1FC55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonStandard", "CommonStandard\CommonStandard.csproj", "{14F03747-71F6-4288-8829-72F778C1FC55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeBlockFilter", "TimeBlockFilter\TimeBlockFilter.csproj", "{BA40C6C8-9C42-41F7-9541-4865537117D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeBlockFilter", "TimeBlockFilter\TimeBlockFilter.csproj", "{BA40C6C8-9C42-41F7-9541-4865537117D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckBlacklistedWifi", "CheckBlacklistedWifi\CheckBlacklistedWifi.csproj", "{FB7A5A8C-907C-4490-97C7-8F064C4925CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckBlacklistedWifi", "CheckBlacklistedWifi\CheckBlacklistedWifi.csproj", "{FB7A5A8C-907C-4490-97C7-8F064C4925CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTPProtocolFilter_Tests", "HTTPFilterTest\HTTPProtocolFilter_Tests.csproj", "{BD930EBB-C503-419F-86C6-43C0FFB9390D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HTTPProtocolFilter_Tests", "HTTPFilterTest\HTTPProtocolFilter_Tests.csproj", "{BD930EBB-C503-419F-86C6-43C0FFB9390D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckBlacklistedWifi_Tests", "CheckBlacklistedWifi_Tests\CheckBlacklistedWifi_Tests.csproj", "{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeBlockFilter_Tests", "TimeBlockFilter_Tests\TimeBlockFilter_Tests.csproj", "{4E265428-C0AA-4595-AC72-14445CA9B839}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +65,22 @@ Global
 		{BD930EBB-C503-419F-86C6-43C0FFB9390D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD930EBB-C503-419F-86C6-43C0FFB9390D}.Release|x86.ActiveCfg = Release|Any CPU
 		{BD930EBB-C503-419F-86C6-43C0FFB9390D}.Release|x86.Build.0 = Release|Any CPU
+		{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}.Debug|x86.Build.0 = Debug|Any CPU
+		{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}.Release|x86.ActiveCfg = Release|Any CPU
+		{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}.Release|x86.Build.0 = Release|Any CPU
+		{4E265428-C0AA-4595-AC72-14445CA9B839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E265428-C0AA-4595-AC72-14445CA9B839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E265428-C0AA-4595-AC72-14445CA9B839}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4E265428-C0AA-4595-AC72-14445CA9B839}.Debug|x86.Build.0 = Debug|Any CPU
+		{4E265428-C0AA-4595-AC72-14445CA9B839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E265428-C0AA-4595-AC72-14445CA9B839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E265428-C0AA-4595-AC72-14445CA9B839}.Release|x86.ActiveCfg = Release|Any CPU
+		{4E265428-C0AA-4595-AC72-14445CA9B839}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -189,10 +189,11 @@ namespace CheckBlacklistedWifi
         /// <returns></returns>
         public static bool fastBlockZoneCheck(
             IEnumerable<string> textcurrent,
-            List<string> textrules,
+            List<string> textrules, out List<string> new_textrules,
             Action<string> log)
         {
             bool inBlockZone = true;
+            new_textrules = new List<string>();
 
             try
             {
@@ -231,12 +232,13 @@ namespace CheckBlacklistedWifi
                     currentWifis,
                     blocked, ignored, trusted, out newBadWifis, log);
 
+                new_textrules = new List<string>(textrules);
                 if (inBlockZone)
                 {
                     foreach (var newbad in newBadWifis)
                     {
                         newbad.TrustLevel = WifiNetwork.TrustMode.BLOCKED; // From unkown to bad.
-                        textrules.Add(newbad.ToString());
+                        new_textrules.Add(newbad.ToString());
                     }
                 }
             }
@@ -248,5 +250,34 @@ namespace CheckBlacklistedWifi
             return inBlockZone;
         }
 
+
+        private static void WifiZoneFlow(
+            List<string> current_near_wifis,
+            List<string> latest_ruleset,
+            Action insideBlockZone, Action outsideBlockZone, Action<List<string>> updateRules,
+            Action<string> log
+            )
+        {
+            if (current_near_wifis.Count > 0)
+            {
+                List<string> newRules;
+                if (WifiHelper.fastBlockZoneCheck(
+                    current_near_wifis, latest_ruleset, out newRules, (text) => log(text)))
+                {
+                    // Update all rules with bad ones:
+                    updateRules?.Invoke(newRules);
+                    insideBlockZone?.Invoke();
+                }
+                else
+                {
+                    outsideBlockZone?.Invoke();
+                }
+            }
+            else
+            {
+                log("Found 0 wifis, assume blockzone");
+                insideBlockZone?.Invoke();
+            }
+        }
     }
 }
