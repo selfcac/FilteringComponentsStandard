@@ -261,8 +261,8 @@ namespace CheckBlacklistedWifi
             if (current_near_wifis.Count > 0)
             {
                 List<string> newRules;
-                if (WifiHelper.fastBlockZoneCheck(
-                    current_near_wifis, latest_ruleset, out newRules, (text) => log(text)))
+                if (fastBlockZoneCheck(
+                    current_near_wifis, latest_ruleset, out newRules, (text) => log?.Invoke(text)))
                 {
                     // Update all rules with bad ones:
                     updateRules?.Invoke(newRules);
@@ -275,7 +275,7 @@ namespace CheckBlacklistedWifi
             }
             else
             {
-                log("Found 0 wifis, assume blockzone");
+                log?.Invoke("Found 0 wifis, assume blockzone");
                 insideBlockZone?.Invoke();
             }
         }
