@@ -184,7 +184,7 @@ namespace CheckBlacklistedWifi
         /// </summary>
         /// <param name="textcurrent">List of current Wifi BSSID</param>
         /// <param name="textrules">prefix: '-' block, '+' trusted, '?' ignore</param>
-        /// <param name="newBSSIDsRules">the entire new rule set (not only the added blocked)</param>
+        /// <param name="new_textrules">A output of the new rules. Even if not in blocking zone</param>
         /// <param name="log">A logging function</param>
         /// <returns></returns>
         public static bool fastBlockZoneCheck(
@@ -266,6 +266,7 @@ namespace CheckBlacklistedWifi
                 {
                     // Update all rules with bad ones:
                     updateRules?.Invoke(newRules);
+
                     insideBlockZone?.Invoke();
                 }
                 else
