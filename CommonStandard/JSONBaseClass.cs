@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-using System.Text.Json;
-using System.Text.Json.Serialization;
+
 
 namespace CommonStandard
 {
@@ -14,7 +14,7 @@ namespace CommonStandard
             string result = "";
             try
             {
-                result = JsonSerializer.Serialize(this, this.GetType(), new JsonSerializerOptions() { WriteIndented = true }); 
+                result = JsonConvert.SerializeObject(this); 
             }
             catch (Exception ex)
             {
@@ -28,7 +28,7 @@ namespace CommonStandard
             T result = defValue;
             try
             {
-                result = JsonSerializer.Deserialize<T>(jsonContent);
+                result = JsonConvert.DeserializeObject<T>(jsonContent);
             }
             catch (Exception ex)
             {
