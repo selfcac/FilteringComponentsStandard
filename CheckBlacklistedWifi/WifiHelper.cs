@@ -186,10 +186,10 @@ namespace CheckBlacklistedWifi
         /// <param name="textrules">prefix: '-' block, '+' trusted, '?' ignore</param>
         /// <param name="new_textrules">A output of the new rules. Even if not in blocking zone</param>
         /// <param name="log">A logging function</param>
-        /// <returns></returns>
+        /// <returns>in black zone?</returns>
         public static bool fastBlockZoneCheck(
             IEnumerable<string> textcurrent,
-            List<string> textrules, out List<string> new_textrules,
+            IEnumerable<string> textrules, out List<string> new_textrules,
             Action<string> log)
         {
             bool inBlockZone = true;
