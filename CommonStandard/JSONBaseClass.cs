@@ -14,7 +14,7 @@ namespace CommonStandard
             string result = "";
             try
             {
-                result = JsonConvert.SerializeObject(this); 
+                result = JsonConvert.SerializeObject(this,Formatting.Indented); 
             }
             catch (Exception ex)
             {
