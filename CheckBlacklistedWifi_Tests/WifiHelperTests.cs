@@ -11,8 +11,9 @@ namespace CheckBlacklistedWifi_Tests
         public List<string> TestWifiBlocked(bool inBlockZone, List<string> current, List<string> rules)
         {
             List<string> newRules;
+            string reason = "";
             Assert.AreEqual(inBlockZone, WifiHelper.fastBlockZoneCheck(
-               current, rules, out newRules, (s) => Console.WriteLine(s)
+               current, rules, out newRules, (s) => Console.WriteLine(s), out reason
                 ));
             return newRules;
         }

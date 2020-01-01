@@ -99,9 +99,10 @@ namespace CheckBlacklistedWifi
         public static bool inBlockZone(
             IEnumerable<WifiNetwork> currentIDs,
             IEnumerable<WifiNetwork> badIDs, IEnumerable<WifiNetwork> ignoreIDs, IEnumerable<WifiNetwork> trustedIDs,
-            out List<WifiNetwork> newBadIDs, Action<string> log)
+            out List<WifiNetwork> newBadIDs, Action<string> log, out string reason)
         {
             bool inblockzone = true; // until proven innocent
+            reason = "init";
 
             // Make hashset for faster searching:
             HashSet<WifiNetwork> currentHashes = new HashSet<WifiNetwork>(currentIDs),
@@ -122,6 +123,7 @@ namespace CheckBlacklistedWifi
                 if (trustedHashes.Contains(id))
                 {
                     log("Found trusted ('" + id + "'). So not in blockzone.");
+                    reason = "Found trusted: " + id + "'";
                     foundTrusted = true;
                     break;
                 }
@@ -150,8 +152,11 @@ namespace CheckBlacklistedWifi
                 {
                     if (badsHashes.Contains(id))
                     {
-                        if (!foundBlocked) // log once
+                        if (!foundBlocked)  // log once 
+                        {
                             log("Found first blocked BSSID ('" + id + "').");
+                            reason = "Found Blocked: " + id;
+                        }
                         foundBlocked = true;
                         // Don't break loop! we still want to know every new!
                     }
@@ -173,6 +178,7 @@ namespace CheckBlacklistedWifi
                     inblockzone = false;
                     newBadIDs.Clear(); // no need if we are outside of black zone.
                     log("Not in blockzone. Found " + relevantHashes.Count + " BSSID around.");
+                    reason = "No bad in " + relevantHashes.Count + " wifis";
                 }
             }
 
@@ -190,10 +196,11 @@ namespace CheckBlacklistedWifi
         public static bool fastBlockZoneCheck(
             IEnumerable<string> textcurrent,
             IEnumerable<string> textrules, out List<string> new_textrules,
-            Action<string> log)
+            Action<string> log, out string reason)
         {
             bool inBlockZone = true;
             new_textrules = new List<string>();
+            reason = "init";
 
             try
             {
@@ -230,7 +237,7 @@ namespace CheckBlacklistedWifi
 
                 inBlockZone = WifiHelper.inBlockZone(
                     currentWifis,
-                    blocked, ignored, trusted, out newBadWifis, log);
+                    blocked, ignored, trusted, out newBadWifis, log, out reason);
 
                 new_textrules = new List<string>(textrules);
                 if (inBlockZone)
@@ -255,14 +262,15 @@ namespace CheckBlacklistedWifi
             List<string> current_near_wifis,
             List<string> latest_ruleset,
             Action insideBlockZone, Action outsideBlockZone, Action<List<string>> updateRules,
-            Action<string> log
+            Action<string> log, out string reason
             )
         {
+            reason = "init";
             if (current_near_wifis.Count > 0)
             {
                 List<string> newRules;
                 if (fastBlockZoneCheck(
-                    current_near_wifis, latest_ruleset, out newRules, (text) => log?.Invoke(text)))
+                    current_near_wifis, latest_ruleset, out newRules, (text) => log?.Invoke(text), out reason))
                 {
                     // Update all rules with bad ones:
                     updateRules?.Invoke(newRules);
@@ -276,6 +284,7 @@ namespace CheckBlacklistedWifi
             }
             else
             {
+                reason = "Found 0 wifis, assume blockzone";
                 log?.Invoke("Found 0 wifis, assume blockzone");
                 insideBlockZone?.Invoke();
             }
