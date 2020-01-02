@@ -9,13 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonStandard", "CommonSta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeBlockFilter", "TimeBlockFilter\TimeBlockFilter.csproj", "{BA40C6C8-9C42-41F7-9541-4865537117D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckBlacklistedWifi", "CheckBlacklistedWifi\CheckBlacklistedWifi.csproj", "{FB7A5A8C-907C-4490-97C7-8F064C4925CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckBlacklistedWifiStandard", "CheckBlacklistedWifi\CheckBlacklistedWifiStandard.csproj", "{FB7A5A8C-907C-4490-97C7-8F064C4925CF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HTTPProtocolFilter_Tests", "HTTPFilterTest\HTTPProtocolFilter_Tests.csproj", "{BD930EBB-C503-419F-86C6-43C0FFB9390D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckBlacklistedWifi_Tests", "CheckBlacklistedWifi_Tests\CheckBlacklistedWifi_Tests.csproj", "{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckBlacklistedWifi_Tests", "CheckBlacklistedWifi_Tests\CheckBlacklistedWifi_Tests.csproj", "{1F5B194E-EEC3-49B3-BA83-A1D451EF6413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeBlockFilter_Tests", "TimeBlockFilter_Tests\TimeBlockFilter_Tests.csproj", "{4E265428-C0AA-4595-AC72-14445CA9B839}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeBlockFilter_Tests", "TimeBlockFilter_Tests\TimeBlockFilter_Tests.csproj", "{4E265428-C0AA-4595-AC72-14445CA9B839}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

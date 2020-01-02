@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CheckBlacklistedWifi
+namespace CheckBlacklistedWifiStandard
 {
     public static class GitInfo
     {

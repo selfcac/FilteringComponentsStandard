@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CheckBlacklistedWifi\CheckBlacklistedWifi.csproj" />
+    <ProjectReference Include="..\CheckBlacklistedWifi\CheckBlacklistedWifiStandard.csproj" />
   </ItemGroup>
 
 </Project>
