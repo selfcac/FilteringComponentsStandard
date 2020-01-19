@@ -8,10 +8,9 @@ namespace CommonStandard
 {
     public class GitInfo
     {
-        static Func<string>[] gitInfoFuncs =
-        {
-            GitInfo.GetInfo
-        };
+        static string[] GitDependencies =
+           { }
+       ;
 
         public static string GetInfo()
         {
@@ -26,7 +25,9 @@ namespace CommonStandard
 
         public static string[] AllGitInfo()
         {
-            return gitInfoFuncs.Select((func) => func()).ToArray();
+            List<string> dependencies = GitDependencies.Select(x => "+--" + x).ToList();
+            dependencies.Insert(0, GetInfo());
+            return dependencies.ToArray();
         }
     }
 }

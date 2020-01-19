@@ -7,11 +7,9 @@ namespace HTTPProtocolFilter
 {
     public class GitInfo
     {
-        static Func<string>[] gitInfoFuncs =
-        {
-            GitInfo.GetInfo,
-            CommonStandard.GitInfo.GetInfo
-        };
+        static string[] GitDependencies =
+            CommonStandard.GitInfo.AllGitInfo()
+        ;
 
         public static string GetInfo()
         {
@@ -26,7 +24,9 @@ namespace HTTPProtocolFilter
 
         public static string[] AllGitInfo()
         {
-            return gitInfoFuncs.Select((func) => func()).ToArray();
+            List<string> dependencies = GitDependencies.Select(x => "+--" + x).ToList();
+            dependencies.Insert(0, GetInfo());
+            return dependencies.ToArray();
         }
     }
 }
