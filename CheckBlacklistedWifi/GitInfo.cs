@@ -13,7 +13,8 @@ namespace CheckBlacklistedWifiStandard
 
         public static string GetInfo()
         {
-            return string.Format("{0}+{1}{2} ({3}) {4}",
+            return string.Format("{0} {1}+{2}{3} ({4}) {5}",
+                typeof(GitInfo).Namespace,
                 ThisAssembly.Git.BaseTag,
                 ThisAssembly.Git.Commits,
                 ThisAssembly.Git.IsDirty ? "*" : "",
@@ -24,7 +25,7 @@ namespace CheckBlacklistedWifiStandard
 
         public static string[] AllGitInfo()
         {
-            List<string> dependencies = GitDependencies.Select(x => "+--" + x).ToList();
+            List<string> dependencies = GitDependencies.Select(x => "+-- " + x).ToList();
             dependencies.Insert(0, GetInfo());
             return dependencies.ToArray();
         }
