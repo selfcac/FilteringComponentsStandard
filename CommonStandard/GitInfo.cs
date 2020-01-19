@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace CheckBlacklistedWifiStandard
+
+namespace CommonStandard
 {
-    public static class GitInfo
+    public class GitInfo
     {
         static Func<string>[] gitInfoFuncs =
-       {
-            GitInfo.GetInfo,
+        {
+            GitInfo.GetInfo
         };
 
         public static string GetInfo()
