@@ -348,6 +348,12 @@ namespace HTTPProtocolFilter
             return domain != null;
         }
 
+        public bool isTrustedHost(string host)
+        {
+            DomainPolicy domain = allowedDomainsTrie.CheckDomain(host)?.Tag;
+            return domain != null && domain.Trusted;
+        }
+
         /// <summary>
         /// Check if complete URL is in policy (Host+EP+Phrase checks)
         /// </summary>
@@ -403,5 +409,7 @@ namespace HTTPProtocolFilter
         {
             return ToJSON();
         }
+
+        
     }
 }

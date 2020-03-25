@@ -57,6 +57,7 @@ namespace HTTPProtocolFilter
     {
         public bool DomainBlocked = false; // only if true, checke if allowed ep, if 0 just check blocked, o.w check allow then block
         public bool AllowRefering = false;
+        public bool Trusted = false; // Will bypass our proxy? for ssl pinning
 
         public AllowDomainType Type;
         public string DomainFormat;
@@ -88,6 +89,7 @@ namespace HTTPProtocolFilter
 
         DomainPolicy findAllowedDomain(string host);
         bool isWhitelistedHost(string host);
+        bool isTrustedHost(string host);
 
         bool isWhitelistedEP(DomainPolicy domainObj, string ep, out string reason);
 

@@ -610,5 +610,47 @@ namespace HTTPFilterTest
             areTrue(FilterPolicy.checkEPRuleMatch(new EPPolicy() { EpFormat = "/LOWER", Type = AllowEPType.STARTWITH }, "/lower"));
             areTrue(FilterPolicy.checkEPRuleMatch(new EPPolicy() { EpFormat = "LOWER", Type = AllowEPType.CONTAIN }, "/lower-some"));
         }
+
+        [TestMethod()]
+        public void trustedDomains()
+        {
+            FilterPolicy filter = new FilterPolicy()
+            {
+                BlockedPhrases = new List<PhraseFilter>() { },
+                AllowedDomains = new List<DomainPolicy>()
+                {
+                    new DomainPolicy()
+                    {
+                         DomainBlocked = true,
+                         DomainFormat = "www.shalom.co.il",
+                         Type = AllowDomainType.EXACT,
+                         Trusted = true,
+                    },
+                    new DomainPolicy()
+                    {
+                         DomainBlocked = false,
+                         DomainFormat = ".maariv.co.il",
+                         Type = AllowDomainType.SUBDOMAINS,
+                         Trusted = true,
+                    },
+                    new DomainPolicy()
+                    {
+                         DomainBlocked = false,
+                         DomainFormat = ".ynet.co.il",
+                         Type = AllowDomainType.SUBDOMAINS
+                    },
+                }
+            };
+
+            Assert.IsTrue(filter.isTrustedHost("www.shalom.co.il"));
+            Assert.IsFalse(filter.isTrustedHost("wwshalom.co.il"));
+
+            Assert.IsTrue(filter.isTrustedHost("maariv.co.il"));
+            Assert.IsFalse(filter.isTrustedHost("submaariv.co.il"));
+            Assert.IsTrue(filter.isTrustedHost("sub.maariv.co.il"));
+
+            Assert.IsFalse(filter.isTrustedHost("ynet.co.il"));
+            Assert.IsFalse(filter.isTrustedHost("sub.ynet.co.il"));
+        }
     }
 }
