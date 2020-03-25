@@ -59,7 +59,8 @@ namespace PortsOwnersFilter
 
         // You can remember trusted process ids (like the host process of this filter etc.)
         void addTrustedPid(int pid);
-        void isTrustedPid(int pid);
+        void removeTrustedPid(int pid);
+        bool isTrustedPid(int pid);
 
         // You can ignore Path if user is trusted
         bool isUserTrusted(UserOwner user);

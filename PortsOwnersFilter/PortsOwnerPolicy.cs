@@ -1,12 +1,13 @@
-﻿using System;
+﻿using CommonStandard;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PortsOwnersFilter
 {
-    public class PortsOwnerPolicy : IPortsOwnerPolicy
+    public class PortsOwnerPolicy : JSONBaseClass, IPortsOwnerPolicy
     {
-        List<int> TrustedProcessIds = new List<int>();
+        HashSet<int> TrustedProcessIds = new HashSet<int>();
 
         FilterMode PolicyMode = FilterMode.Whitelist;
         List<UserOwner> TrustedUsers = new List<UserOwner>();
@@ -17,17 +18,22 @@ namespace PortsOwnersFilter
 
         public void addTrustedPid(int pid)
         {
-            throw new NotImplementedException();
+            TrustedProcessIds.Add(pid);
+        }
+
+        public void removeTrustedPid(int pid)
+        {
+            TrustedProcessIds.Remove(pid);
+        }
+
+        public void setMode(FilterMode mode)
+        {
+            PolicyMode = mode;
         }
 
         public FilterMode getMode()
         {
-            throw new NotImplementedException();
-        }
-
-        public bool isAllowed(int pid, string fullpath, UserOwner user, GroupOwner[] groups)
-        {
-            throw new NotImplementedException();
+            return PolicyMode;
         }
 
         public bool isGroupsTrusted(GroupOwner[] groups)
@@ -40,9 +46,9 @@ namespace PortsOwnersFilter
             throw new NotImplementedException();
         }
 
-        public void isTrustedPid(int pid)
+        public bool isTrustedPid(int pid)
         {
-            throw new NotImplementedException();
+            return TrustedProcessIds.Contains(pid);
         }
 
         public bool isUserTrusted(UserOwner user)
@@ -50,19 +56,33 @@ namespace PortsOwnersFilter
             throw new NotImplementedException();
         }
 
-        public void setMode(FilterMode mode)
+        public bool isAllowed(int pid, string fullpath, UserOwner user, GroupOwner[] groups)
         {
             throw new NotImplementedException();
         }
 
+
+        // ========================= Save & Load
+
         public void reloadPolicy(string jsonContent)
         {
-            throw new NotImplementedException();
+            PortsOwnerPolicy newPolicy = JSONBaseClass.FromJSONString<PortsOwnerPolicy>(jsonContent, defValue: null);
+            if (newPolicy != null)
+            {
+                TrustedProcessIds = newPolicy.TrustedProcessIds;
+
+                PolicyMode = newPolicy.PolicyMode;
+                TrustedUsers = newPolicy.TrustedUsers;
+                TrustedGroups = newPolicy.TrustedGroups;
+                AllowedPaths = newPolicy.AllowedPaths;
+            }
         }
 
         public string savePolicy()
         {
-            throw new NotImplementedException();
+            return ToJSON();
         }
+
+
     }
 }

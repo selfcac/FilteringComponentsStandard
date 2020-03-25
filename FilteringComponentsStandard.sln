@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckBlacklistedWifi_Tests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeBlockFilter_Tests", "TimeBlockFilter_Tests\TimeBlockFilter_Tests.csproj", "{4E265428-C0AA-4595-AC72-14445CA9B839}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortsOwnersFilter", "PortsOwnersFilter\PortsOwnersFilter.csproj", "{988BAE09-1933-43F7-BFB9-72822F3AF195}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortsOwnersFilter", "PortsOwnersFilter\PortsOwnersFilter.csproj", "{988BAE09-1933-43F7-BFB9-72822F3AF195}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortsOwnersFilter_Tests", "PortsOwnersFilter_Tests\PortsOwnersFilter_Tests.csproj", "{A3C706AE-62F2-44F5-99EB-B7F6D34A6736}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,14 @@ Global
 		{988BAE09-1933-43F7-BFB9-72822F3AF195}.Release|Any CPU.Build.0 = Release|Any CPU
 		{988BAE09-1933-43F7-BFB9-72822F3AF195}.Release|x86.ActiveCfg = Release|Any CPU
 		{988BAE09-1933-43F7-BFB9-72822F3AF195}.Release|x86.Build.0 = Release|Any CPU
+		{A3C706AE-62F2-44F5-99EB-B7F6D34A6736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C706AE-62F2-44F5-99EB-B7F6D34A6736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C706AE-62F2-44F5-99EB-B7F6D34A6736}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A3C706AE-62F2-44F5-99EB-B7F6D34A6736}.Debug|x86.Build.0 = Debug|Any CPU
+		{A3C706AE-62F2-44F5-99EB-B7F6D34A6736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C706AE-62F2-44F5-99EB-B7F6D34A6736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C706AE-62F2-44F5-99EB-B7F6D34A6736}.Release|x86.ActiveCfg = Release|Any CPU
+		{A3C706AE-62F2-44F5-99EB-B7F6D34A6736}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
