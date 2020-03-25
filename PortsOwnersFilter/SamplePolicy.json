@@ -1,0 +1,92 @@
+﻿{
+	"TrustedUsers": [
+		{
+			"Type": 0,
+			"Value": "trusted-u-name1"
+		},
+		{
+			"Type": 0,
+			"Value": "trusted-u-name2"
+		},
+		{
+			"Type": 1,
+			"Value": "trusted-u-sid1"
+		},
+		{
+			"Type": 1,
+			"Value": "trusted-u-sid2"
+		}
+	],
+	"TrustedGroups": [
+		{
+			"Type": 0,
+			"Value": "trusted-g-name1"
+		},
+		{
+			"Type": 0,
+			"Value": "trusted-g-name2"
+		},
+		{
+			"Type": 1,
+			"Value": "trusted-g-sid1"
+		},
+		{
+			"Type": 1,
+			"Value": "trusted-g-sid2"
+		}
+	],
+	"AllowedPaths": [
+		{
+			"PathFilter": 0,
+			"AllowedUsers": [],
+			"AllowedGroups": [],
+			"Path": "alwaysblocked"
+		},
+		{
+			"PathFilter": 1,
+			"AllowedUsers": [],
+			"AllowedGroups": [],
+			"Path": "allusers"
+		},
+		{
+			"PathFilter": 0,
+			"AllowedUsers": [
+				{
+					"Type": 0,
+					"Value": "app-u-1"
+				},
+				{
+					"Type": 0,
+					"Value": "app-u-2"
+				},
+				{
+					"Type": 1,
+					"Value": "app-u-1-sid"
+				},
+				{
+					"Type": 1,
+					"Value": "app-u-2-sid"
+				}
+			],
+			"AllowedGroups": [
+				{
+					"Type": 0,
+					"Value": "app-g-1"
+				},
+				{
+					"Type": 0,
+					"Value": "app-g-2"
+				},
+				{
+					"Type": 1,
+					"Value": "app-g-1-sid"
+				},
+				{
+					"Type": 1,
+					"Value": "app-g-2-sid"
+				}
+			],
+			"Path": "app.exe"
+		}
+	]
+}

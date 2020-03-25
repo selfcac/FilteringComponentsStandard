@@ -14,7 +14,9 @@ namespace PortsOwnersFilter
 
         [JsonIgnore]
         Dictionary<OwnerType, HashSet<string>> __trustedUsersSearch
-            = new Dictionary<OwnerType, HashSet<string>>();
+            = new Dictionary<OwnerType, HashSet<string>>()
+            { {OwnerType.NAME, new HashSet<string>()}, {OwnerType.SID, new HashSet<string>()}};
+
         [JsonIgnore]
         List<UserOwner> __trustedUsersList = new List<UserOwner>();
 
@@ -37,7 +39,9 @@ namespace PortsOwnersFilter
 
         [JsonIgnore]
         Dictionary<OwnerType, HashSet<string>> __trustedGroupsSearch
-            = new Dictionary<OwnerType, HashSet<string>>();
+            = new Dictionary<OwnerType, HashSet<string>>()
+                { {OwnerType.NAME, new HashSet<string>()}, {OwnerType.SID, new HashSet<string>()}};
+
         [JsonIgnore]
         List<GroupOwner> __trustedGroupsList = new List<GroupOwner>();
 
@@ -133,27 +137,33 @@ namespace PortsOwnersFilter
         public bool isProcessPathAllowed(string fullpath, UserOwner user, GroupOwner[] usergroups)
         {
             string myPath = PathPolicy.makeStandartPath(fullpath);
-            bool found = false;
+            bool allowed = false;
 
             if (!__allowedPathSearch.ContainsKey(myPath))
             {
-                found = false;
+                allowed = false;
             }
             else
             {
-
-                if (!found)
+                if (__allowedPathSearch[myPath].PathFilter == PathAllowedType.ANY)
                 {
-                    found = __allowedPathSearch[myPath].AllowedUsers.Contains(user);
+                    allowed = true;
                 }
-                if (!found)
+                else
                 {
-                    foreach (var item in usergroups)
+                    if (!allowed)
                     {
-                        if (__allowedPathSearch[myPath].AllowedGroups.Contains(item))
+                        allowed = __allowedPathSearch[myPath].AllowedUsers.Contains(user);
+                    }
+                    if (!allowed)
+                    {
+                        foreach (var item in usergroups)
                         {
-                            found = true;
-                            break;
+                            if (__allowedPathSearch[myPath].AllowedGroups.Contains(item))
+                            {
+                                allowed = true;
+                                break;
+                            }
                         }
                     }
                 }
@@ -161,10 +171,10 @@ namespace PortsOwnersFilter
 
             if (PolicyMode == FilterMode.Blacklist)
             {
-                found = !found;
+                allowed = !allowed;
             }
             
-            return found;
+            return allowed;
         }
 
         public bool isAllowed(int pid, string fullpath, UserOwner user, GroupOwner[] usergroups)
