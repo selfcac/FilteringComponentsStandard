@@ -88,12 +88,12 @@ namespace PortsOwnersFilter
             TrustedProcessIds.Remove(pid);
         }
 
-        public void setMode(FilterMode mode)
+        public void setPathFilterMode(FilterMode mode)
         {
             PolicyMode = mode;
         }
 
-        public FilterMode getMode()
+        public FilterMode getPathFilterMode()
         {
             return PolicyMode;
         }
@@ -126,32 +126,42 @@ namespace PortsOwnersFilter
                     break;
                 }
             }
+
             return foundAllowed;
         }
 
         public bool isProcessPathAllowed(string fullpath, UserOwner user, GroupOwner[] usergroups)
         {
             string myPath = PathPolicy.makeStandartPath(fullpath);
+            bool found = false;
+
             if (!__allowedPathSearch.ContainsKey(myPath))
             {
-                return false;
+                found = false;
             }
+            else
+            {
 
-            bool found = false;
-            if (!found)
-            {
-                found = __allowedPathSearch[myPath].AllowedUsers.Contains(user);
-            }
-            if (!found)
-            {
-                foreach (var item in usergroups)
+                if (!found)
                 {
-                    if (__allowedPathSearch[myPath].AllowedGroups.Contains(item))
+                    found = __allowedPathSearch[myPath].AllowedUsers.Contains(user);
+                }
+                if (!found)
+                {
+                    foreach (var item in usergroups)
                     {
-                        found = true;
-                        break;
+                        if (__allowedPathSearch[myPath].AllowedGroups.Contains(item))
+                        {
+                            found = true;
+                            break;
+                        }
                     }
                 }
+            }
+
+            if (PolicyMode == FilterMode.Blacklist)
+            {
+                found = !found;
             }
             
             return found;

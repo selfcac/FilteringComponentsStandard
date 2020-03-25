@@ -24,9 +24,9 @@ namespace PortsOwnersFilter_Tests
         public void CheckFilterMode()
         {
             PortsOwnerPolicy filter = new PortsOwnerPolicy();
-            Assert.AreEqual(filter.getMode(), FilterMode.Whitelist);
-            filter.setMode(FilterMode.Blacklist);
-            Assert.AreEqual(filter.getMode(), FilterMode.Blacklist);
+            Assert.AreEqual(filter.getPathFilterMode(), FilterMode.Whitelist);
+            filter.setPathFilterMode(FilterMode.Blacklist);
+            Assert.AreEqual(filter.getPathFilterMode(), FilterMode.Blacklist);
 
             // Todo: check inverting of result
         }

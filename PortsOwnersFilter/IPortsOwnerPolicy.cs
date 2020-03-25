@@ -71,8 +71,8 @@ namespace PortsOwnersFilter
     //  -> you get {Username, [User.Groups], ProcessPath}
     public interface IPortsOwnerPolicy
     {
-        FilterMode getMode();
-        void setMode(FilterMode mode);
+        FilterMode getPathFilterMode();
+        void setPathFilterMode(FilterMode mode);
 
         // You can remember trusted process ids (like the host process of this filter etc.)
         void addTrustedPid(int pid);
