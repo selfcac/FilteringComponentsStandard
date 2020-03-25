@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -30,23 +31,39 @@ namespace PortsOwnersFilter
 
     public class UserOwner
     {
-        OwnerType Type;
-        string Value;
+        public OwnerType Type;
+        public string Value;
     }
 
     public class GroupOwner
     {
-        OwnerType Type;
-        string Value;
+        public OwnerType Type;
+        public string Value;
     }
 
     public class PathPolicy
     {
-        string Path;
-        PathAllowedType PathType;
+        [JsonIgnore]
+        private string _path;
+        public string Path
+        {
+            get { return _path; }
+            set
+            {
+                _path = makeStandartPath(value);
+            }
+        }
 
-        UserOwner[] AllowedUsers;
-        GroupOwner[] AllowedGroups;
+        public PathAllowedType PathFilter;
+
+        public List<UserOwner> AllowedUsers = new List<UserOwner>();
+        public List<GroupOwner> AllowedGroups = new List<GroupOwner>();
+
+        public static string makeStandartPath(string path)
+        {
+            return path.ToLower();
+        }
+
     }
 
     // you get pid 
@@ -66,13 +83,13 @@ namespace PortsOwnersFilter
         bool isUserTrusted(UserOwner user);
 
         // You can ignore Path if user in group that is trusted
-        bool isGroupsTrusted(GroupOwner[] groups);
+        bool isGroupsTrusted(GroupOwner[] usergroups);
 
         // Finally you check if path is allowed (with [group || user || any user] combined)
-        bool isProcessPathAllowed(string fullpath, UserOwner user, GroupOwner[] groups);
+        bool isProcessPathAllowed(string fullpath, UserOwner user, GroupOwner[] usergroups);
 
         // Check all (pid, trusted user, trusted group, path with those user\groups)
-        bool isAllowed(int pid, string fullpath, UserOwner user, GroupOwner[] groups);
+        bool isAllowed(int pid, string fullpath, UserOwner user, GroupOwner[] usergroups);
 
         void reloadPolicy(string jsonContent);
         string savePolicy();
