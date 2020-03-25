@@ -67,10 +67,13 @@ namespace PortsOwnersFilter
         // You can ignore Path if user in group that is trusted
         bool isGroupsTrusted(GroupOwner[] groups);
 
-        // Finally you check if path is allowed (with group, user, any user tuple)
+        // Finally you check if path is allowed (with [group || user || any user] combined)
         bool isProcessPathAllowed(string fullpath, UserOwner user, GroupOwner[] groups);
 
         // Check all (pid, trusted user, trusted group, path with those user\groups)
         bool isAllowed(int pid, string fullpath, UserOwner user, GroupOwner[] groups);
+
+        void reloadPolicy(string jsonContent);
+        string savePolicy();
     }
 }
