@@ -33,12 +33,24 @@ namespace PortsOwnersFilter
     {
         public OwnerType Type;
         public string Value;
+
+        public override bool Equals(object obj)
+        {
+            UserOwner other = obj as UserOwner;
+            return other != null && other.Type == Type && other.Value == Value;
+        }
     }
 
     public class GroupOwner
     {
         public OwnerType Type;
         public string Value;
+
+        public override bool Equals(object obj)
+        {
+            GroupOwner other = obj as GroupOwner;
+            return other != null && other.Type == Type && other.Value == Value;
+        }
     }
 
     public class PathPolicy
