@@ -2,6 +2,7 @@ using HTTPProtocolFilter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace HTTPFilterTest
 {
@@ -692,7 +693,7 @@ namespace HTTPFilterTest
             Assert.IsFalse(filter.isWhitelistedHost(newDomain1));
             filter.addWhitelistDomain(newDomain1);
             Assert.IsTrue(filter.isWhitelistedHost(newDomain1));
-            Assert.IsTrue(filter.isWhitelistedURL(newDomain1,"/anyEp", out _));
+            Assert.IsTrue(filter.isWhitelistedURL(newDomain1, "/anyEp", out _));
 
             // Add whitelist sub+domain
             Assert.IsFalse(filter.isWhitelistedHost(newDomain2));
@@ -708,14 +709,52 @@ namespace HTTPFilterTest
             filter.addWhitelistDomain(newDomain3);
             filter.findAllowedDomain(newDomain3).AddEndpoint(true, "/ok", AllowEPType.STARTWITH);
             Assert.IsFalse(filter.isWhitelistedURL(newDomain3, "/", out _));
-            Assert.IsTrue(filter.isWhitelistedURL(newDomain3,"/ok_1", out _));
+            Assert.IsTrue(filter.isWhitelistedURL(newDomain3, "/ok_1", out _));
             Assert.IsFalse(filter.isWhitelistedURL(newDomain3, "/not-ok_1", out _));
 
             filter.findAllowedDomain(newDomain3).AddEndpoint(false, "bad", AllowEPType.CONTAIN);
-            Assert.IsFalse (filter.isWhitelistedURL(newDomain3, "/ok_1_but_bad", out _));
-            
+            Assert.IsFalse(filter.isWhitelistedURL(newDomain3, "/ok_1_but_bad", out _));
 
 
+
+        }
+
+        [TestMethod()]
+        public void MitmEndpointsGetPhrases()
+        {
+            FilterPolicy filter = new FilterPolicy()
+            {
+                BlockedPhrases = new List<PhraseFilter>()
+                {
+                    new PhraseFilter()
+                    {
+                        Type = BlockPhraseType.REGEX,
+                        Phrase = "la[tp]ex",
+                        Scope = BlockPhraseScope.ANY // just block it -  Very bad term!
+                    },
+                    new PhraseFilter()
+                    {
+                        Type = BlockPhraseType.REGEX,
+                        Phrase = "^(?=.*search)(?!.*google\\.com).*\\/search.*[\\?&]q\\=",
+                        Scope = BlockPhraseScope.URL,
+                    }
+                },
+                AllowedDomains = new List<DomainPolicy>()
+                {
+                    new DomainPolicy()
+                    {
+                         DomainBlocked = false,
+                         DomainFormat = ".google.com",
+                         Type = AllowDomainType.SUBDOMAINS
+                    }
+                }
+            };
+
+            var expectedJson =
+                "[{\"Scope\":2,\"Type\":3,\"Phrase\":\"la[tp]ex\"},{\"Scope\":0,\"Type\":3,\"Phrase\":\"^(?=.*search)(?!.*google\\\\.com).*\\\\/search.*[\\\\?&]q\\\\=\"}]";
+
+            //Console.WriteLine(filter.getPhrasesJson()); (Copy value from quick watch)
+            Assert.IsTrue(filter.getPhrasesJson()== expectedJson);
         }
 
 

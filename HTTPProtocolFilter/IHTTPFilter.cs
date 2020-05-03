@@ -106,6 +106,7 @@ namespace HTTPProtocolFilter
         bool isContentAllowed(string Content, BlockPhraseScope scope, out string reason);
 
 
+        string getPhrasesJson();
         void addWhitelistDomain(string host);
 
         void reloadPolicy(string jsonContent);

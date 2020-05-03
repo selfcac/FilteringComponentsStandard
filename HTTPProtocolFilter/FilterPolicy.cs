@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HTTPProtocolFilter.Utils;
 using CommonStandard;
+using Newtonsoft.Json;
 
 namespace HTTPProtocolFilter
 {
@@ -417,6 +418,11 @@ namespace HTTPProtocolFilter
 
             AllowedDomains.Add((DomainPolicy)host); // will add subdomain type if startWith '.'
             AllowedDomains = AllowedDomains; // Refresh the Trie structure
+        }
+
+        public string getPhrasesJson()
+        {
+            return JsonConvert.SerializeObject(BlockedPhrases);
         }
     }
 }
