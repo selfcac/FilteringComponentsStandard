@@ -652,5 +652,72 @@ namespace HTTPFilterTest
             Assert.IsFalse(filter.isTrustedHost("ynet.co.il"));
             Assert.IsFalse(filter.isTrustedHost("sub.ynet.co.il"));
         }
+
+
+
+        [TestMethod()]
+        public void MitmEndpointsFeatures()
+        {
+            FilterPolicy filter = new FilterPolicy()
+            {
+                BlockedPhrases = new List<PhraseFilter>() { },
+                AllowedDomains = new List<DomainPolicy>()
+                {
+                    new DomainPolicy()
+                    {
+                         DomainBlocked = true,
+                         DomainFormat = "aaa.maariv.co.il",
+                         Type = AllowDomainType.EXACT
+                    },
+                    new DomainPolicy()
+                    {
+                         DomainBlocked = false,
+                         DomainFormat = ".maariv.co.il",
+                         Type = AllowDomainType.SUBDOMAINS
+                    },
+                    new DomainPolicy()
+                    {
+                         DomainBlocked = true,
+                         DomainFormat = "tmi.maariv.co.il",
+                         Type = AllowDomainType.EXACT
+                    },
+                }
+            };
+
+            string newDomain1 = "add.com";
+            string newDomain2 = ".addmore.com";
+            string newDomain3 = "extra.com";
+
+            // Add whitelist
+            Assert.IsFalse(filter.isWhitelistedHost(newDomain1));
+            filter.addWhitelistDomain(newDomain1);
+            Assert.IsTrue(filter.isWhitelistedHost(newDomain1));
+            Assert.IsTrue(filter.isWhitelistedURL(newDomain1,"/anyEp", out _));
+
+            // Add whitelist sub+domain
+            Assert.IsFalse(filter.isWhitelistedHost(newDomain2));
+            filter.addWhitelistDomain(newDomain2);
+            Assert.IsTrue(filter.isWhitelistedHost("sub" + newDomain2));
+            Assert.IsTrue(filter.isWhitelistedURL("sub2" + newDomain2, "/anyEp", out _));
+
+            // Block domain by find
+            filter.findAllowedDomain(newDomain1).DomainBlocked = true;
+            Assert.IsFalse(filter.isWhitelistedURL(newDomain1, "/anyEp", out _));
+
+            // Add EP (allow \\ block)
+            filter.addWhitelistDomain(newDomain3);
+            filter.findAllowedDomain(newDomain3).AddEndpoint(true, "/ok", AllowEPType.STARTWITH);
+            Assert.IsFalse(filter.isWhitelistedURL(newDomain3, "/", out _));
+            Assert.IsTrue(filter.isWhitelistedURL(newDomain3,"/ok_1", out _));
+            Assert.IsFalse(filter.isWhitelistedURL(newDomain3, "/not-ok_1", out _));
+
+            filter.findAllowedDomain(newDomain3).AddEndpoint(false, "bad", AllowEPType.CONTAIN);
+            Assert.IsFalse (filter.isWhitelistedURL(newDomain3, "/ok_1_but_bad", out _));
+            
+
+
+        }
+
+
     }
 }

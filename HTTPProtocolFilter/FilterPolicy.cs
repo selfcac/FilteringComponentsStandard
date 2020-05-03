@@ -416,6 +416,7 @@ namespace HTTPProtocolFilter
                 return;
 
             AllowedDomains.Add((DomainPolicy)host); // will add subdomain type if startWith '.'
+            AllowedDomains = AllowedDomains; // Refresh the Trie structure
         }
     }
 }
