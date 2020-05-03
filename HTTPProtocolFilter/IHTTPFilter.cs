@@ -73,6 +73,15 @@ namespace HTTPProtocolFilter
                 };
         }
 
+        public void AddEndpoint(bool Allowing, string EpValue, AllowEPType EpType)
+        {
+            ((Allowing) ? AllowEP : BlockEP)?.Add(new EPPolicy()
+            {
+                EpFormat = EpValue,
+                Type = EpType
+            });
+        }
+
         public override string ToString()
         {
             return string.Format("[D] \"{0}\", Allow:{1}/Block:{2}, {3}, Blocked? {4}"
@@ -95,6 +104,9 @@ namespace HTTPProtocolFilter
 
         PhraseFilter findBlockingPhrase(string Content, BlockPhraseScope scope, out string context);
         bool isContentAllowed(string Content, BlockPhraseScope scope, out string reason);
+
+
+        void addWhitelistDomain(string host);
 
         void reloadPolicy(string jsonContent);
         string savePolicy();

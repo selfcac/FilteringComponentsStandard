@@ -410,6 +410,12 @@ namespace HTTPProtocolFilter
             return ToJSON();
         }
 
-        
+        public void addWhitelistDomain(string host)
+        {
+            if (string.IsNullOrEmpty(host))
+                return;
+
+            AllowedDomains.Add((DomainPolicy)host); // will add subdomain type if startWith '.'
+        }
     }
 }
