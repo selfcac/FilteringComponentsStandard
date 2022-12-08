@@ -9,7 +9,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     
     <Content Condition="$(TargetFramework)=='netstandard2.0'" Include="$(NuGetPackageRoot)\newtonsoft.json\12.0.3\lib\netstandard2.0\Newtonsoft.Json.dll">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
